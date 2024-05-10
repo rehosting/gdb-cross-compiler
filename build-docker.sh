@@ -12,4 +12,4 @@ echo "[+] Building docker image: ${JAMMY_TAG}"
 docker build --tag ${JAMMY_TAG} --build-arg CODE_NAME=ubuntu:jammy - < "${DOCKERFILE_PATH}"
 
 echo "[+] Running gdb container: ${JAMMY_TAG}-builder"
-docker run -it --rm -v "${PWD}:/gdb" --name "${JAMMY_TAG}-builder" ${JAMMY_TAG} /bin/bash -c "/bin/bash /gdb/build.sh"
+docker run --rm -v "${PWD}:/gdb" --name "${JAMMY_TAG}-builder" ${JAMMY_TAG} /bin/bash -c "/bin/bash /gdb/build.sh"
