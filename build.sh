@@ -88,13 +88,10 @@ function buildGDB() {
 
     if [ "${isGDBServer}" = true ]; then
         OUTPUT_ARCHIVE_PATH="${buildPath}/gdbserver-${eabi}.zip"
-        echo "[+] Creating gdbserver archive: ${OUTPUT_ARCHIVE_PATH}"
-        cd bin/
-        zip -q ${OUTPUT_ARCHIVE_PATH} ./gdbserver
+        cp ./gdbserver "${BUILD_PATH}/binaries/gdbserver-${eabi}"
     else
         OUTPUT_ARCHIVE_PATH="${buildPath}/gdb-${eabi}.zip"
-        echo "[+] Creating gdb archive: ${OUTPUT_ARCHIVE_PATH}"
-        zip -q -r ${OUTPUT_ARCHIVE_PATH} ./*
+        cp ./gdb "${BUILD_PATH}/binaries/gdb-${eabi}"
     fi
 
     cd "${PROJECT_DIR}" || exit
@@ -111,12 +108,15 @@ function downloadGDB() {
     fi
 }
 mkdir -p "${BUILD_PATH}"
+mkdir -p "${BUILD_PATH}/binaries"
 downloadGDB "${SOURCE_DIR}"
 
-for ABI in "${GDB_ARCHS[@]}"; do
-    buildGDB false "${ABI}"
-done
+# for ABI in "${GDB_ARCHS[@]}"; do
+#     buildGDB false "${ABI}"
+# done
 
 for ABI in "${GDBSERVER_ARCHS[@]}"; do
     buildGDB true "${ABI}"
 done
+
+tar -czvf "${BUILD_PATH}/gdbserver.tar.gz" -C "${BUILD_PATH}/binaries" .
