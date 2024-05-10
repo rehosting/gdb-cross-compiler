@@ -42,7 +42,10 @@ RUN apt-get update -q && \
         crossbuild-essential-i386 \
         crossbuild-essential-armel \
         crossbuild-essential-armhf \
-        crossbuild-essential-arm64 && \
+        crossbuild-essential-arm64 \
+        crossbuild-essential-mipsel \
+        crossbuild-essential-mips   \
+        crossbuild-essential-mips64 && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* && \
@@ -66,7 +69,7 @@ RUN apt-get update -q && \
         python3 \
         python3-dev \
         python3-distutils \
-        python-is-python3 && \
+        python-dev-is-python3 && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* && \
@@ -74,12 +77,12 @@ RUN apt-get update -q && \
 
 RUN mkdir -p /gdb/
 
-ARG USER="gdb"
+# ARG USER="gdb"
 
-RUN adduser --disabled-password --gecos "" ${USER} && \
-    adduser ${USER} sudo && \
-    echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# RUN adduser --disabled-password --gecos "" ${USER} && \
+    # adduser ${USER} sudo && \
+    # echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER ${USER}
+# USER ${USER}
 
 WORKDIR /gdb/

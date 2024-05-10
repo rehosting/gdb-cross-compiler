@@ -18,7 +18,7 @@ echo "[+] GDB version: ${GDB_VERSION}"
 
 PROJECT_DIR=$(dirname "$(realpath -s "$0")")
 GDB_ARCHS=("x86_64-linux-gnu")
-GDBSERVER_ARCHS=("i686-linux-gnu" "x86_64-linux-gnu" "arm-linux-gnueabi" "aarch64-linux-gnu")
+GDBSERVER_ARCHS=("i686-linux-gnu" "x86_64-linux-gnu" "arm-linux-gnueabi" "aarch64-linux-gnu" "mips-linux-gnu" "mipsel-linux-gnu" "mips64-linux-gnuabi64")
 BUILD_PATH="${PROJECT_DIR}/build"
 SOURCE_DIR="${BUILD_PATH}/gdb-${GDB_VERSION}"
 
@@ -110,9 +110,7 @@ function downloadGDB() {
         curl -sL "${url}" | tar -xz --strip-components=1 -C "${sourceDir}"
     fi
 }
-
 mkdir -p "${BUILD_PATH}"
-
 downloadGDB "${SOURCE_DIR}"
 
 for ABI in "${GDB_ARCHS[@]}"; do
