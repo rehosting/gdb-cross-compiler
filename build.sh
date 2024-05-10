@@ -88,10 +88,10 @@ function buildGDB() {
 
     if [ "${isGDBServer}" = true ]; then
         OUTPUT_ARCHIVE_PATH="${buildPath}/gdbserver-${eabi}.zip"
-        cp ./gdbserver "${BUILD_PATH}/binaries/gdbserver-${eabi}"
+        cp ./bin/gdbserver "${BUILD_PATH}/binaries/gdbserver-${eabi}"
     else
         OUTPUT_ARCHIVE_PATH="${buildPath}/gdb-${eabi}.zip"
-        cp ./gdb "${BUILD_PATH}/binaries/gdb-${eabi}"
+        cp ./bin/gdb "${BUILD_PATH}/binaries/gdb-${eabi}"
     fi
 
     cd "${PROJECT_DIR}" || exit
